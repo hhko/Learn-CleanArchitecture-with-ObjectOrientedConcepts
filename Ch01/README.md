@@ -1,7 +1,7 @@
 # 캡슐화와 추상화 이해하기
 
 ## 캡슐화(Encapsulation)
-- 캡슐화 이유 : 캡슐화를 통해 Rich domain model을 정의할 수 있다.
+- 캡슐화 효과 : 캡슐화를 통해 Rich domain model을 정의할 수 있다.
   ```
   Encapsulation = Rich domain model
   ```
@@ -128,56 +128,73 @@
      ```
 
 ## 추상화(Abstraction)
-- 추상화 필요성 : `Code Simplification`
+- 추상화 효과 : `코드 단순화(Code Simplification)`
+  - 구현 세부 사항을 자세히 살펴보지 않고도 **코드의 의도**를 이해할 수 있다.
+    - 구현 세부 사항 : **관련 없는 것을 제거한다(the elimination of the irrelevant)**
+    - 코드의 의도 : **분질적인 것을 증폭한다(the amplification of the essential)**
   - 복작함을 단순화게 표현할 수 있다(Allow you to express complex ideas as easily as simple ones).
 - 추상화 정의
   ```
-  추상화 = Single Responsibility Principle + Hierarchy
+  Abstraction is
+    the amplification of the essential(Single Responsibility Principle)
+    and
+    the elimination of the irrelevant(Hierarchy).
+
+  Abstraction = Single Responsibility Principle + Hierarchy
   ```
-  - 분질적인 것을 증폭하고 관련 없는 것을 제거하는 것이다(Abstraction is the amplification of the essential and the elimination of theirrelevant).
-    - the amplification of the essential : the current task
-    - the elimination of the irrelevant : all other tasks
+  - 분질적인 것을 증폭하고 관련 없는 것을 제거하는 것이다(Abstraction is the amplification of the essential and the elimination of the irrelevant).
+    - 분질적인 것을 증폭한다(the amplification of the essential) : the current task(SRP 원칙)  
+      당면한 작업에만 집중할 수 있도록 만든다(이해할 코드 범위를 줄인다 : 코드 복잡도를 줄인다).  
+    - 관련 없는 것을 제거한다(the elimination of the irrelevant) : all other tasks
+  - 좋은 추상화 : `You can focus on a single application concern`  
+    단 한가지 관심사에만 집중할 수 있다.
+  - 나쁜 추상화 : `You have to think of multiple concerns`  
+    한번에 많은 관심사에 집중해야 하기 때문에 메서드나 클래스가 무엇을 하는지 알기가 쉽지 않다.
 - 추상화 기술
-  - the new method is an abstraction : the amplification of the essential(WHAT : 메서드 이름)
+  - ~~`abstract class`~~ 추상 클래스는 추상화 기술이 아니다.
+  - ~~`interface`~~ 인터페이스는 추상화 기술이 아니다.
+  - Single Responsibility Principle : SRP을 준수하는 새 메서드와 클래스 만들기는 추상화다.
+    - 새 메서드 만들기
+    - 새 클래스 만들기
+  - Hierarchy : 추상화 수준을 나눌 수 있다.
+    ![](2022-09-25-00-35-06.png)
+- 새 SRP 메서드 만들기 예.
+  - 리팩토링 전 : 고객 이름의 정규화 방법을 알아야 한다.
+    ```cs
+    string trimmedName = customerName
+    	.Replace(" ", "-")
+    	.Trim();
+
+    if (trimmedName.Length > 50)
+    {
+    	trimmedName = trimmedName.Substring(0, 50);
+    }
+    ```
+  - 리팩토링 후(새 메서드 만들기) : '고객 이름이 정규화 된다(`NormalizeCustomerName`)'라는 사실만 안다.
+    ![](2022-09-25-00-32-49.png)  
+    ![](2022-09-25-00-39-10.png)
+    ```cs
+    string normalizedName = NormalizeCustomerName(customerName);
+
+    private string NormalizeCustomerName(string name)
+    {
+    	string trimmedName = name
+    		.Replace(" ", "-")
+    		.Trim();
+    	if (trimmedName.Length > 50)
+    	{
+    		trimmedName = trimmedName.Substring(0, 50);
+    	}
+    	return trimmedName;
+    }
+    ```
+    - 분질적인 것을 증폭한다(the amplification of the essential) : 메서드 이름으로 비즈니스(이름 정규화 : WHAT)만 표현한다.
+    - 관련 없는 것을 제거한다(the elimination of the irrelevant) : 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
 - 추상화 코드
-  - 모든 코드가 추상화이다(All code is abstraction).
-- 좋은 추상화
-  - 메서드나 클래스가 무엇을 하는지 알 수 있는 코드(You can focus on a single application concern).
-- 나쁜 추상화
-  - 메서드나 클래스가 무엇을 하는지 알 수 없는 코드(Yout have to think of multiple concerns).
-1. 추상화 예.
-   - 리팩토링 전
-     ```cs
-     string trimmedName = customerName
-     	.Replace(" ", "-")
-     	.Trim();
+  - 모든 코드가 추상화다(All code is abstraction).
 
-     if (trimmedName.Length > 50)
-     {
-     	trimmedName = trimmedName.Substring(0, 50);
-     }
-     ```
-   - 리팩토링 후
-     ```cs
-	 string normalizedName = NormalizeCustomerName(customerName);
+## 캡슐화 vs. 추상화 비교
 
-     private string NormalizeCustomerName(string name)
-     {
-     	string trimmedName = name
-     		.Replace(" ", "-")
-     		.Trim();
-
-     	if (trimmedName.Length > 50)
-     	{
-     		trimmedName = trimmedName.Substring(0, 50);
-     	}
-
-     	return trimmedName;
-     }
-     ```
-	 - the new method is an abstraction
-	   - amplifies the essential : 메서드 이름(비즈니스 규칙 WHAT : 이름 정규화, `NormalizeCustomerName`)
-	   - eliminates the irrelevant : 메서드 구현(비즈니스 규칙 HOW : 이름 정규화, `NormalizeCustomerName`)
 
 ## 참고 자료
 - [x] [Encapsulating EF Core 6 Usage | Understanding Encapsulation and Abstraction](https://www.pluralsight.com/courses/ef-core-6-encapsulating-usage)
