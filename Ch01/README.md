@@ -171,8 +171,6 @@
     }
     ```
   - 리팩토링 후(새 메서드 만들기) : '고객 이름이 정규화 된다(`NormalizeCustomerName`)'라는 사실만 안다.
-    ![](2022-09-25-00-32-49.png)  
-    ![](2022-09-25-00-39-10.png)
     ```cs
     string normalizedName = NormalizeCustomerName(customerName);
 
@@ -190,6 +188,8 @@
     ```
     - 분질적인 것을 증폭한다(the amplification of the essential) : 메서드 이름으로 비즈니스(이름 정규화 : WHAT)만 표현한다.
     - 관련 없는 것을 제거한다(the elimination of the irrelevant) : 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
+    ![](2022-09-25-00-32-49.png)  
+    ![](2022-09-25-00-39-10.png)
 - 추상화 코드
   - 모든 코드가 추상화다(All code is abstraction).
 
