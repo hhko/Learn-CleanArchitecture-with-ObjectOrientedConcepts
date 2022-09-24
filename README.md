@@ -4,9 +4,9 @@
 <br/>
 
 ## 할일
-- 캡슐화
-- 추상화
-- Value Object
-- Entity
-- Use Case
-- ...
+- [ ] 캡슐화
+- [ ] 추상화
+- [ ] Value Object
+- [ ] Entity
+- [ ] Use Case
+- [ ] ...
