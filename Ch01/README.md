@@ -170,10 +170,11 @@
     	trimmedName = trimmedName.Substring(0, 50);
     }
     ```
-  - 리팩토링 후(새 메서드 만들기) : '고객 이름이 정규화 된다(`NormalizeCustomerName`)'라는 사실만 안다.
+  - 리팩토링 후 : '고객 이름을 정규화 한다(`NormalizeCustomerName`)'라는 사실만 안다.
     ```cs
     string normalizedName = NormalizeCustomerName(customerName);
 
+    // 새 메서드 만들기
     private string NormalizeCustomerName(string name)
     {
     	string trimmedName = name
