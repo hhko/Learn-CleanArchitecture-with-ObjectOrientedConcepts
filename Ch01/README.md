@@ -24,7 +24,7 @@
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)  
     클래스에서 수행할 수 있는 모든 작업에 대한 대한 단일 진입정을 제공한다(Perform integrity checks before modifying data).
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations) 예.
-    - 잘못된 묶음 예.
+    - 잘못된 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 하지 않는다.
       ```cs
       public class Person
       {
@@ -38,9 +38,11 @@
           int coders = persons.Count(person => person.JobTitle == "Programmer"
               || person.JobTitle == "Software Developer"
               || person.JobTitle == "Coder");
+
           int managers = persons.Count(person => person.JobTitle == "CTO"
               || person.JobTitle == "CFO"
               || person.JobTitle == "Manager");
+
           return managers / (double)coders;
       }
       ```
@@ -51,13 +53,14 @@
         Clearly, such decisions should be made by the Person class itself.  
         분명히 이러한 결정은 Person 클래스 자체에서 내려야 합니다.
       - Person 클래스에서 manager와 coder을 결정해야 한다.
-    - 올바른 묶음 예.
+    - 올바른 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 한다.
       ```cs
       public class Person
       {
           public Employer Employer { get; set; }
           public string JobTitle { get; set; }
           public string City { get; set; }
+
           public bool IsCoder
           {
               get
@@ -67,6 +70,7 @@
                       || JobTitle == "Coder";
               }
           }
+
           public bool IsManager
           {
               get
