@@ -23,80 +23,14 @@
     내부 데이터 손상을 최소화시킨다(Less risk of corrupting the class's internals).
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)  
     클래스에서 수행할 수 있는 모든 작업에 대한 대한 단일 진입정을 제공한다(Perform integrity checks before modifying data).
-  - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations) 예.
-    - 잘못된 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 하지 않는다.
-      ```cs
-      public class Person
-      {
-          public Employer Employer { get; set; }
-          public string JobTitle { get; set; }
-          public string City { get; set; }
-      }
-
-      public double GetManagerCoderRatio(IList<Person> persons)
-      {
-          int coders = persons.Count(person => person.JobTitle == "Programmer"
-              || person.JobTitle == "Software Developer"
-              || person.JobTitle == "Coder");
-
-          int managers = persons.Count(person => person.JobTitle == "CTO"
-              || person.JobTitle == "CFO"
-              || person.JobTitle == "Manager");
-
-          return managers / (double)coders;
-      }
-      ```
-      - the method makes decisions based entirely upon the data of a single object.  
-        메서드는 전적으로 단일 개체의 데이터를 기반으로 결정을 내 립니다.  
-        Namely, it decides whether a person a manager or a coder.  
-        즉, 사람이 관리자인지 코더인지를 결정합니다.  
-        Clearly, such decisions should be made by the Person class itself.  
-        분명히 이러한 결정은 Person 클래스 자체에서 내려야 합니다.
-      - Person 클래스에서 manager와 coder을 결정해야 한다.
-    - 올바른 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 한다.
-      ```cs
-      public class Person
-      {
-          public Employer Employer { get; set; }
-          public string JobTitle { get; set; }
-          public string City { get; set; }
-
-          public bool IsCoder
-          {
-              get
-              {
-                  return JobTitle == "Programmer"
-                      || JobTitle == "Software Developer"
-                      || JobTitle == "Coder";
-              }
-          }
-
-          public bool IsManager
-          {
-              get
-              {
-                  return JobTitle == "CTO"
-                      || JobTitle == "CFO"
-                      || JobTitle == "Manager";
-              }
-          }
-      }
-
-      public double GetManagerCoderRatio(IList<Person> persons)
-      {
-          int coders = persons.Count(person => person.IsCoder);
-          int managers = persons.Count(person => person.IsManager);
-          return managers / (double)coders;
-      }
-      ```
 - TODO 불변(비즈니스 규칙)
   - 클래스가 항상 참이어야하는 조건인 고유한 불변 집합이 있습니다. 준수하는 것은 개발자의 책임이다.
-- 캡슐화 예.
-   - 잘못된 캡슐화 예 : 비즈니스 규칙을 준수하지 못한다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호하지 못한다/캡슐화하지 못한다).
-     ```cs
-     // 불변성 : 삼각형은 모서리가 3개이다.
-     public class Triangle
-     {
+- 캡슐화 예 : 데이터 무결성을 보호하는 행위
+  - 잘못된 캡슐화 예 : 비즈니스 규칙을 준수하지 못한다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호하지 못한다/캡슐화하지 못한다).
+    ```cs
+    // 불변성 : 삼각형은 모서리가 3개이다.
+    public class Triangle
+    {
      	public IEnumerable<Edge> Edges { get; }
 
         // 모서리 개수가 3개 미만 또는 3개 초가할 때도 Triangle 객체를 생성할 수 있다.
@@ -104,15 +38,15 @@
      	{
      		Edges = edges;
      	}
-     }
+    }
 
-     var two = new Triangle(twoEdges);		// Line
-     var four = new Triangle(fourEdges);	// Square
-   - 올바른 캡슐화 예 : 비즈니스 규칙을 준수할 수 있다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호한다/캡슐화한다).
-     ```cs
-     // 불변성 : 삼각형은 모서리가 3개이다.
-     public class Triangle
-     {
+    var two = new Triangle(twoEdges);		// Line
+    var four = new Triangle(fourEdges);	// Square
+  - 올바른 캡슐화 예 : 비즈니스 규칙을 준수할 수 있다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호한다/캡슐화한다).
+    ```cs
+    // 불변성 : 삼각형은 모서리가 3개이다.
+    public class Triangle
+    {
      	public IEnumerable<Edge> Edges { get; }
 
         // 모서리 개수가 3개 미만 또는 3개 초가할 때는 Triangle 객체를 생성할 수 없다.
@@ -124,8 +58,74 @@
 
      		Edges = edges;
      	}
-     }
-     ```
+    }
+    ```
+- 캡슐화 예 : 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)
+  - 잘못된 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 하지 않는다.
+    ```cs
+    public class Person
+    {
+        public Employer Employer { get; set; }
+        public string JobTitle { get; set; }
+        public string City { get; set; }
+    }
+
+    public double GetManagerCoderRatio(IList<Person> persons)
+    {
+        int coders = persons.Count(person => person.JobTitle == "Programmer"
+            || person.JobTitle == "Software Developer"
+            || person.JobTitle == "Coder");
+
+        int managers = persons.Count(person => person.JobTitle == "CTO"
+            || person.JobTitle == "CFO"
+            || person.JobTitle == "Manager");
+
+        return managers / (double)coders;
+    }
+    ```
+    - the method makes decisions based entirely upon the data of a single object.  
+      메서드는 전적으로 단일 개체의 데이터를 기반으로 결정을 내 립니다.  
+      Namely, it decides whether a person a manager or a coder.  
+      즉, 사람이 관리자인지 코더인지를 결정합니다.  
+      Clearly, such decisions should be made by the Person class itself.  
+      분명히 이러한 결정은 Person 클래스 자체에서 내려야 합니다.
+    - Person 클래스에서 manager와 coder을 결정해야 한다.
+  - 올바른 묶음 예 : manager인지 coder인지 결정(행위)을 Person 클래스가 한다.
+    ```cs
+    public class Person
+    {
+        public Employer Employer { get; set; }
+        public string JobTitle { get; set; }
+        public string City { get; set; }
+
+        public bool IsCoder
+        {
+            get
+            {
+                return JobTitle == "Programmer"
+                    || JobTitle == "Software Developer"
+                    || JobTitle == "Coder";
+            }
+        }
+
+        public bool IsManager
+        {
+            get
+            {
+                return JobTitle == "CTO"
+                    || JobTitle == "CFO"
+                    || JobTitle == "Manager";
+            }
+        }
+    }
+
+    public double GetManagerCoderRatio(IList<Person> persons)
+    {
+        int coders = persons.Count(person => person.IsCoder);
+        int managers = persons.Count(person => person.IsManager);
+        return managers / (double)coders;
+    }
+    ```
 
 ## 추상화(Abstraction)
 - 추상화 이유 : 복잡함을 관리하여 `코드를 단순화(Code Simplification)` 시킨다.
@@ -136,7 +136,8 @@
 - 추상화 정의
   ```
   Abstraction is
-    the amplification of the essential(Single Responsibility Principle, Hierarchy)
+    the amplification of the essential
+    (Single Responsibility Principle, Hierarchy)
     and
     the elimination of the irrelevant.
 
@@ -194,16 +195,15 @@
     ```
     ![](2022-09-25-00-39-10.png)  
     ![](2022-09-25-00-32-49.png)  
-    - 분질적인 것을 증폭한다(`Amplifies the essential`)
-      - 고객 이름 정규화 `사실(WHAT)만` 알린다(`NormalizeCustomerName`).
-      - 메서드 이름으로 비즈니스(이름 정규화 사실 : WHAT)만 표현한다.
+    - 분질적인 것을 증폭한다(`Amplifies the essential`) : 비즈니스 사실(메서드 이름)
+      - 고객 이름 정규화 `사실(WHAT : 메서드 이름)`을 공개한다.
       - NormalizeCustomerName `메서드 이름`
-    - 관련 없는 것을 제거한다(`Eliminates the irrelevant`)
-      - 고객 이름 정규화 `방법이(HOW)이` 비공개되어 있다.
-      - 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
+    - 관련 없는 것을 제거한다(`Eliminates the irrelevant`) : 비즈니스 규칙(메서드 구현)
+      - 고객 이름 정규화 `규칙(HOW : 메서드 구현)`을 비공개한다.
       - NormalizeCustomerName `메서드 구현`
-  - 리팩토링 효과 : 복잡성(비즈니스 규칙 세부 구현)을  코드를 단순화 시킨다.
+  - 리팩토링 효과
     ![](2022-10-03-13-41-05.png)
+    - 비즈니스 사실(`이름 정규화 사실`)을 증폭 시키고, 관련 없는 것(`이름 정규화 규칙`)을 제거시켜 코드를 단순화 시킨다.
 - 추상화 적용 범위
   - 모든 코드가 추상화다(All code is abstraction).
 
