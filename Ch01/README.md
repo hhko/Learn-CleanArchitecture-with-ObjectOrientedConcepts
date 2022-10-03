@@ -175,12 +175,6 @@
     }
     ```
   - 리팩토링 후 :
-    - `Amplifies the essential`
-      - 고객 이름 정규화 `사실(WHAT)만` 알린다(`NormalizeCustomerName`).
-      - NormalizeCustomerName `메서드 이름`
-    - `Eliminates the irrelevant`
-      - 고객 이름 정규화 `방법이(HOW)이` 비공개되어 있다.
-      - NormalizeCustomerName `메서드 구현`
     ```cs
     // 고객 이름 정규화 사실 : NormalizeCustomerName 메서드 이름
     string normalizedName = NormalizeCustomerName(customerName);
@@ -198,11 +192,17 @@
     	return trimmedName;
     }
     ```
-    - 분질적인 것을 증폭한다(the amplification of the essential) : 메서드 이름으로 비즈니스(이름 정규화 사실 : WHAT)만 표현한다.
-    - 관련 없는 것을 제거한다(the elimination of the irrelevant) : 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
+    ![](2022-09-25-00-39-10.png)  
     ![](2022-09-25-00-32-49.png)  
-    ![](2022-09-25-00-39-10.png)
-- 추상화 코드
+    - 분질적인 것을 증폭한다(`Amplifies the essential`)
+      - 고객 이름 정규화 `사실(WHAT)만` 알린다(`NormalizeCustomerName`).
+      - 메서드 이름으로 비즈니스(이름 정규화 사실 : WHAT)만 표현한다.
+      - NormalizeCustomerName `메서드 이름`
+    - 관련 없는 것을 제거한다(`Eliminates the irrelevant`)
+      - 고객 이름 정규화 `방법이(HOW)이` 비공개되어 있다.
+      - 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
+      - NormalizeCustomerName `메서드 구현`
+- 추상화 적용 범위
   - 모든 코드가 추상화다(All code is abstraction).
 
 ## 캡슐화 vs. 추상화 비교
