@@ -163,7 +163,7 @@
   - `Hierarchy` : 단 한가지 관심사 기준으로 **계층 관계**를 정의한다.
     ![](2022-09-25-00-35-06.png)
 - 추상화 리팩토링 예 : 단 한가지 관심사를 갖는 새 메서드 만들기
-  - 리팩토링 전 : 고객 이름 정규화 방법이 공개되어 있다.
+  - 리팩토링 전 : 고객 이름 정규화 방법(비즈니스 규칙 구현)이 공개되어 있다.
     ```cs
     string trimmedName = customerName
     	.Replace(" ", "-")
@@ -174,7 +174,7 @@
     	trimmedName = trimmedName.Substring(0, 50);
     }
     ```
-  - 리팩토링 후 :
+  - 리팩토링 후 : 고객 이름 정규화 방법(비즈니스 규칙 구현)이 비공개되어 있다.
     ```cs
     // 고객 이름 정규화 사실 : NormalizeCustomerName 메서드 이름
     string normalizedName = NormalizeCustomerName(customerName);
@@ -202,6 +202,8 @@
       - 고객 이름 정규화 `방법이(HOW)이` 비공개되어 있다.
       - 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
       - NormalizeCustomerName `메서드 구현`
+  - 리팩토링 효과 : 복잡성(비즈니스 규칙 세부 구현)을  코드를 단순화 시킨다.
+    ![](2022-10-03-13-41-05.png)
 - 추상화 적용 범위
   - 모든 코드가 추상화다(All code is abstraction).
 
