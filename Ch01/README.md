@@ -135,7 +135,7 @@
     ```
 
 ## 추상화(Abstraction)
-- 추상화 이유 : 복잡함을 관리하여 `코드를 단순화(Code Simplification)` 시킨다.
+- 추상화 이유 : 복잡함을 단 한가지 관심사 기준으로 계층화와 `코드를 단순화(Code Simplification)` 시킨다.
   - 구현 세부 사항을 자세히 살펴보지 않고도 **코드의 의도**를 이해할 수 있다.
     - 구현 세부 사항 : **관련 없는 것을 제거한다(the elimination of the irrelevant)**
     - 코드의 의도 : **분질적인 것을 증폭한다(the amplification of the essential)**
