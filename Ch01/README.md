@@ -6,8 +6,9 @@
   Encapsulation = Rich domain model
   ```
   - `TODO` Rich domain model
+  - `Helps reduce the mental burden required to maintain data consistency.`
 - 캡슐화 정의
-  - **캡슐화는 데이터 무결성을 보호하는 행위입니다(Protecting data integrity).**
+  - **캡슐화는 데이터 무결성을 보호하는 행위입니다(Act of protecting data integrity).**
     - [데이터 무결성은 데이터를 보호하여 **항상 정상인 데이터를 유지하는 것**이다.](https://terms.naver.com/entry.naver?docId=826184&cid=42344&categoryId=42344)
     - [데이터 무결성은 **데이터에 대한 정확성, 일관성, 유효성, 신뢰성을 보장**하기 위해 데이터 변경 혹은 수정 시 여러가지 제한을 두어 **데이터의 정확성을 보증하는 것을 말한다.**](https://terms.naver.com/entry.naver?docId=2839810&cid=40942&categoryId=32840)
       - 데이터에 대한 정확성, 일관성, 유효성, 신뢰성을 보장한다 : **데이터를 보호한다.**
@@ -23,7 +24,9 @@
     내부 데이터 손상을 최소화시킨다(Less risk of corrupting the class's internals).
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)  
     클래스에서 수행할 수 있는 모든 작업에 대한 대한 단일 진입정을 제공한다(Perform integrity checks before modifying data).
-- TODO 불변(비즈니스 규칙)
+- 불변 : 
+  - 데이터 무결정을 보호하기 위한 조건을 불변이라고 한다.
+  - 조건은 항상 참이어야 한다.
   - 클래스가 항상 참이어야하는 조건인 고유한 불변 집합이 있습니다. 준수하는 것은 개발자의 책임이다.
 - 캡슐화 예 : 데이터 무결성을 보호하는 행위
   - 잘못된 캡슐화 예 : 비즈니스 규칙을 준수하지 못한다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호하지 못한다/캡슐화하지 못한다).
@@ -132,7 +135,10 @@
   - 구현 세부 사항을 자세히 살펴보지 않고도 **코드의 의도**를 이해할 수 있다.
     - 구현 세부 사항 : **관련 없는 것을 제거한다(the elimination of the irrelevant)**
     - 코드의 의도 : **분질적인 것을 증폭한다(the amplification of the essential)**
+      - Helps `focus on one task` at a time.
+      - Helps `focus on WHATS(intent)'s`, not HOW's(Implementation details)
   - 복작함을 단순화게 표현할 수 있다(Allow you to express complex ideas as easily as simple ones).
+    - Hierarchies help `express complex ideas` just as easily as `simple ideas`.
 - 추상화 정의
   ```
   Abstraction is the amplification of the essential
@@ -200,12 +206,28 @@
       - NormalizeCustomerName `메서드 구현`
   - 리팩토링 효과
     ![](2022-10-03-13-41-05.png)
+    ![](2022-10-03-17-02-07.png)
+
     - 비즈니스 사실(`이름 정규화 사실`)을 증폭 시키고, 관련 없는 것(`이름 정규화 규칙`)을 제거시켜 코드를 단순화 시킨다.
+    - 세부 구현 없이 코드의 흐름(의도 : WHAT's만)을 이해할 수 있다.
+- 추상화 예 : `string` vs. `EmailAddress`
+  ![](2022-10-03-16-36-08.png)
 - 추상화 적용 범위
   - 모든 코드가 추상화다(All code is abstraction).
 
 ## 캡슐화 vs. 추상화 비교
+![](2022-10-03-17-15-45.png)
+![](2022-10-03-17-39-08.png)
 
+- 캡슐화와 추상화 예
+  ![](2022-10-03-17-09-53.png)
+  ![](2022-10-03-17-14-57.png)
+  > 비즈니스 규칙 : No students in an inactive course
+  - 캡슐화
+    - `private` 접근 제어
+    - `Disable` 메서드 구현
+  - 추상화
+    - `Disable` 메서드 이름
 
 ## 참고 자료
 - [x] [Encapsulating EF Core 6 Usage | Understanding Encapsulation and Abstraction](https://www.pluralsight.com/courses/ef-core-6-encapsulating-usage)
