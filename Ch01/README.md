@@ -135,11 +135,8 @@
   - 복작함을 단순화게 표현할 수 있다(Allow you to express complex ideas as easily as simple ones).
 - 추상화 정의
   ```
-  Abstraction is
-    the amplification of the essential
-    (Single Responsibility Principle, Hierarchy)
-    and
-    the elimination of the irrelevant.
+  Abstraction is the amplification of the essential
+    and the elimination of the irrelevant.
 
   Abstraction = Single Responsibility Principle + Hierarchy
   ```
