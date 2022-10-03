@@ -25,7 +25,7 @@
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)  
     클래스에서 수행할 수 있는 모든 작업에 대한 대한 단일 진입정을 제공한다(Perform integrity checks before modifying data).
 - 불변 : 
-  - 데이터 무결정을 보호하기 위한 조건을 불변이라고 한다.
+  - 데이터 무결성을 보호하기 위한 조건을 불변이라 한다.
   - 조건은 항상 참이어야 한다.
   - 클래스가 항상 참이어야하는 조건인 고유한 불변 집합이 있습니다. 준수하는 것은 개발자의 책임이다.
 - 캡슐화 예 : 데이터 무결성을 보호하는 행위
@@ -36,15 +36,19 @@
     {
      	public IEnumerable<Edge> Edges { get; }
 
-      // 모서리 개수가 3개 미만 또는 3개 초가할 때도 Triangle 객체를 생성할 수 있다.
+     	// 모서리 개수가 3개 미만 또는 3개 초가할 때도 Triangle 객체를 생성할 수 있다.
      	public Triangle(IEnumerable<Edge> edges)
      	{
      		Edges = edges;
      	}
     }
 
-    var two = new Triangle(twoEdges);		// Line
-    var four = new Triangle(fourEdges);	// Square
+    // Line
+    var two = new Triangle(twoEdges);		
+
+    // Square
+    var four = new Triangle(fourEdges);	
+    ```
   - 올바른 캡슐화 예 : 비즈니스 규칙을 준수할 수 있다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호한다/캡슐화한다).
     ```cs
     // 불변성 : 삼각형은 모서리가 3개이다.
@@ -55,7 +59,7 @@
      	// 모서리 개수가 3개 미만 또는 3개 초가할 때는 Triangle 객체를 생성할 수 없다.
      	public Triangle(IEnumerable<Edge> edges)
      	{
-        // Guard clause
+     		// Guard clause
      		if (edges.Count() != 3)
      			throw new Exception("Triangle must have 3 edges");
 
@@ -146,7 +150,7 @@
 
   Abstraction = Single Responsibility Principle + Hierarchy
   ```
-  - 분질적인 것을 증폭하고 관련 없는 것을 제거하는 것이다(Abstraction is the amplification of the essential and the elimination of the irrelevant).
+  - 분질적인 것을 증폭하고 관련 없는 것을 제거하는 것이다.
     - 분질적인 것을 증폭한다(the amplification of the essential) : the current task(SRP 원칙)  
       당면한 작업에만 집중할 수 있도록 만든다(이해할 코드 범위를 줄인다 : 코드 복잡도를 줄인다).  
     - 관련 없는 것을 제거한다(the elimination of the irrelevant) : all other tasks
@@ -207,9 +211,8 @@
       - 고객 이름 정규화 `규칙(HOW : 메서드 구현)`을 비공개한다.
       - NormalizeCustomerName `메서드 구현`
   - 리팩토링 효과
-    ![](2022-10-03-13-41-05.png)
-    ![](2022-10-03-17-02-07.png)
-
+    ![](2022-10-03-13-41-05.png)  
+    ![](2022-10-03-17-02-07.png)  
     - 비즈니스 사실(`이름 정규화 사실`)을 증폭 시키고, 관련 없는 것(`이름 정규화 규칙`)을 제거시켜 코드를 단순화 시킨다.
     - 세부 구현 없이 코드의 흐름(의도 : WHAT's만)을 이해할 수 있다.
 - 추상화 예 : `string` vs. `EmailAddress`
@@ -222,8 +225,8 @@
 ![](2022-10-03-17-39-08.png)
 
 - 캡슐화와 추상화 예
-  ![](2022-10-03-17-09-53.png)
-  ![](2022-10-03-17-14-57.png)
+  ![](2022-10-03-17-09-53.png)  
+  ![](2022-10-03-17-14-57.png)  
   > 비즈니스 규칙 : No students in an inactive course
   - 캡슐화
     - `private` 접근 제어
