@@ -1,7 +1,7 @@
 # 캡슐화와 추상화 이해하기
 
 ## 캡슐화(Encapsulation)
-- 캡슐화 효과 : 캡슐화를 통해 Rich domain model을 정의할 수 있다.
+- 캡슐화 이유 : 캡슐화를 통해 Rich domain model을 정의할 수 있다.
   ```
   Encapsulation = Rich domain model
   ```
@@ -92,7 +92,7 @@
 - TODO 불변(비즈니스 규칙)
   - 클래스가 항상 참이어야하는 조건인 고유한 불변 집합이 있습니다. 준수하는 것은 개발자의 책임이다.
 - 캡슐화 예.
-   - 잘못된 캡슐화 예.
+   - 잘못된 캡슐화 예 : 비즈니스 규칙을 준수하지 못한다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호하지 못한다/캡슐화하지 못한다).
      ```cs
      // 불변성 : 삼각형은 모서리가 3개이다.
      public class Triangle
@@ -108,7 +108,7 @@
 
      var two = new Triangle(twoEdges);		// Line
      var four = new Triangle(fourEdges);	// Square
-   - 올바른 캡슐화 예 : 3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호한다(캡슐화한다).
+   - 올바른 캡슐화 예 : 비즈니스 규칙을 준수할 수 있다(3개보다 적거나 많은 모서리을 갖는 것으로부터 스스로 보호한다/캡슐화한다).
      ```cs
      // 불변성 : 삼각형은 모서리가 3개이다.
      public class Triangle
@@ -128,7 +128,7 @@
      ```
 
 ## 추상화(Abstraction)
-- 추상화 효과 : `코드 단순화(Code Simplification)`
+- 추상화 이유 : 복잡함을 관리하여 `코드를 단순화(Code Simplification)` 시킨다.
   - 구현 세부 사항을 자세히 살펴보지 않고도 **코드의 의도**를 이해할 수 있다.
     - 구현 세부 사항 : **관련 없는 것을 제거한다(the elimination of the irrelevant)**
     - 코드의 의도 : **분질적인 것을 증폭한다(the amplification of the essential)**
@@ -136,9 +136,9 @@
 - 추상화 정의
   ```
   Abstraction is
-    the amplification of the essential(Single Responsibility Principle)
+    the amplification of the essential(Single Responsibility Principle, Hierarchy)
     and
-    the elimination of the irrelevant(Hierarchy).
+    the elimination of the irrelevant.
 
   Abstraction = Single Responsibility Principle + Hierarchy
   ```
@@ -146,20 +146,26 @@
     - 분질적인 것을 증폭한다(the amplification of the essential) : the current task(SRP 원칙)  
       당면한 작업에만 집중할 수 있도록 만든다(이해할 코드 범위를 줄인다 : 코드 복잡도를 줄인다).  
     - 관련 없는 것을 제거한다(the elimination of the irrelevant) : all other tasks
-  - 좋은 추상화 : `You can focus on a single application concern`  
-    단 한가지 관심사에만 집중할 수 있다.
-  - 나쁜 추상화 : `You have to think of multiple concerns`  
-    한번에 많은 관심사에 집중해야 하기 때문에 메서드나 클래스가 무엇을 하는지 알기가 쉽지 않다.
+  - `Not just the Single Responsibility Principle`
+    ![](2022-10-03-13-02-47.png)
+    - 좋은 추상화 : `You can focus on a single application concern`  
+      단 한가지 관심사에만 집중할 수 있다.
+    - 나쁜 추상화 : `You have to think of multiple concerns`  
+      한번에 많은 관심사에 집중해야 하기 때문에 메서드나 클래스가 무엇을 하는지 알기가 쉽지 않다.
+  - `Abstraction can form hierarchies`
+    ![](2022-10-03-13-05-02.png)
+  - **단 한가지 관심사 기준으로 계층화(구조화)할 수 있다.**
+    ![](2022-10-03-13-16-45.png)
 - 추상화 기술
   - ~~`abstract class`~~ 추상 클래스는 추상화 기술이 아니다.
   - ~~`interface`~~ 인터페이스는 추상화 기술이 아니다.
-  - Single Responsibility Principle : SRP을 준수하는 새 메서드와 클래스 만들기는 추상화다.
+  - Single Responsibility Principle : SRP을 준수하는 `새 메서드와 새 클래스 만들기`는 추상화 방법이다.
     - 새 메서드 만들기
     - 새 클래스 만들기
   - Hierarchy : 추상화 수준을 나눌 수 있다.
     ![](2022-09-25-00-35-06.png)
-- 새 SRP 메서드 만들기 예.
-  - 리팩토링 전 : 고객 이름의 정규화 방법을 알아야 한다.
+- 새 메서드 만들기 예.
+  - 리팩토링 전 : 고객 이름 정규화 방법이 공개되어 있다.
     ```cs
     string trimmedName = customerName
     	.Replace(" ", "-")
@@ -170,11 +176,18 @@
     	trimmedName = trimmedName.Substring(0, 50);
     }
     ```
-  - 리팩토링 후 : '고객 이름을 정규화 한다(`NormalizeCustomerName`)'라는 사실만 안다.
+  - 리팩토링 후 :
+    - `Amplifies the essential`
+      - 고객 이름 정규화 `사실(WHAT)만` 알린다(`NormalizeCustomerName`).
+      - NormalizeCustomerName `메서드 이름`
+    - `Eliminates the irrelevant`
+      - 고객 이름 정규화 `방법이(HOW)이` 비공개되어 있다.
+      - NormalizeCustomerName `메서드 구현`
     ```cs
+    // 고객 이름 정규화 사실 : NormalizeCustomerName 메서드 이름
     string normalizedName = NormalizeCustomerName(customerName);
 
-    // 새 메서드 만들기
+    // 고객 이름 정규화 방법 : NormalizeCustomerName 메서드 구현
     private string NormalizeCustomerName(string name)
     {
     	string trimmedName = name
