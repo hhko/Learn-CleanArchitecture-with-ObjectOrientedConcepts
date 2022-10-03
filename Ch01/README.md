@@ -154,17 +154,15 @@
       한번에 많은 관심사에 집중해야 하기 때문에 메서드나 클래스가 무엇을 하는지 알기가 쉽지 않다.
   - `Abstraction can form hierarchies`
     ![](2022-10-03-13-05-02.png)
-  - **단 한가지 관심사 기준으로 계층화(구조화)할 수 있다.**
+  - `단 한가지 관심사 기준으로 계층화(구조화)할 수 있다.`
     ![](2022-10-03-13-16-45.png)
 - 추상화 기술
   - ~~`abstract class`~~ 추상 클래스는 추상화 기술이 아니다.
   - ~~`interface`~~ 인터페이스는 추상화 기술이 아니다.
-  - Single Responsibility Principle : SRP을 준수하는 `새 메서드와 새 클래스 만들기`는 추상화 방법이다.
-    - 새 메서드 만들기
-    - 새 클래스 만들기
-  - Hierarchy : 추상화 수준을 나눌 수 있다.
+  - `Single Responsibility Principle` : 단 한가지 관심사 기준으로 **새 메서드와 새 클래스**을 만든다.
+  - `Hierarchy` : 단 한가지 관심사 기준으로 **계층 관계**를 정의한다.
     ![](2022-09-25-00-35-06.png)
-- 새 메서드 만들기 예.
+- 추상화 리팩토링 예 : 단 한가지 관심사를 갖는 새 메서드 만들기
   - 리팩토링 전 : 고객 이름 정규화 방법이 공개되어 있다.
     ```cs
     string trimmedName = customerName
@@ -200,7 +198,7 @@
     	return trimmedName;
     }
     ```
-    - 분질적인 것을 증폭한다(the amplification of the essential) : 메서드 이름으로 비즈니스(이름 정규화 : WHAT)만 표현한다.
+    - 분질적인 것을 증폭한다(the amplification of the essential) : 메서드 이름으로 비즈니스(이름 정규화 사실 : WHAT)만 표현한다.
     - 관련 없는 것을 제거한다(the elimination of the irrelevant) : 메서드로 비즈니스 규칙(이름 정규화 규칙 : HOW)을 감춘다.
     ![](2022-09-25-00-32-49.png)  
     ![](2022-09-25-00-39-10.png)
