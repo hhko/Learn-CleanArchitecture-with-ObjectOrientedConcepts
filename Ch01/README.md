@@ -36,7 +36,7 @@
     {
      	public IEnumerable<Edge> Edges { get; }
 
-        // 모서리 개수가 3개 미만 또는 3개 초가할 때도 Triangle 객체를 생성할 수 있다.
+      // 모서리 개수가 3개 미만 또는 3개 초가할 때도 Triangle 객체를 생성할 수 있다.
      	public Triangle(IEnumerable<Edge> edges)
      	{
      		Edges = edges;
@@ -52,10 +52,10 @@
     {
      	public IEnumerable<Edge> Edges { get; }
 
-        // 모서리 개수가 3개 미만 또는 3개 초가할 때는 Triangle 객체를 생성할 수 없다.
+     	// 모서리 개수가 3개 미만 또는 3개 초가할 때는 Triangle 객체를 생성할 수 없다.
      	public Triangle(IEnumerable<Edge> edges)
      	{
-            // Guard clause
+        // Guard clause
      		if (edges.Count() != 3)
      			throw new Exception("Triangle must have 3 edges");
 
@@ -189,10 +189,12 @@
     	string trimmedName = name
     		.Replace(" ", "-")
     		.Trim();
+
     	if (trimmedName.Length > 50)
     	{
     		trimmedName = trimmedName.Substring(0, 50);
     	}
+
     	return trimmedName;
     }
     ```
