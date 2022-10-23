@@ -1,12 +1,19 @@
 # 캡슐화와 추상화 이해하기
 
 ## 캡슐화와 추상화 정의
-- **캡슐화**는 **데이터 무결성**을 보호하는 행위입니다.
+- **캡슐화**는 **데이터 무결성**을 보호하는 **행위**입니다.
   ```
   Encapsulation is an act of protecting the data integrity. 
   ```
-  - 정보 은닉(Information hiding)
-  - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)
+  - 데이터 무결성
+    ```
+    Data integrity refers to the accuracy and consistency (validity) of data over its lifecycle.
+    ```
+    - `Accuracy` : 정확성
+    - `Consistency(validity)` : 일관성(유효성)
+  - 데이터 무결성을 보호하는 행위
+    - 정보 은닉(Information hiding)
+    - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)
 - **추상화**는 **불필요한 것**을 **제거**하고 **본질적인 것**을 **증폭**하는 것입니다.
   ```
   Abstraction is the elimination of the irrelevant and the amplification of the essential.
@@ -259,3 +266,5 @@
 - [ ] [Tell, don't ask 원칙(TDA 원칙)](https://effectiveprogramming.tistory.com/entry/Tell-dont-ask?category=660012)
 - [ ] [The Tell Don’t Ask Principle Explained](https://danparkin.com/2018/09/18/tell-dont-ask/)
 - [ ] [Law of Demeter and immutability](https://enterprisecraftsmanship.com/posts/law-of-demeter-and-immutability/)
+- [ ] [What is Data Integrity? Definition, Best Practices & More](https://digitalguardian.com/blog/what-data-integrity-data-protection-101)
+  - `Data integrity refers to the accuracy and consistency (validity) of data over its lifecycle.` 
