@@ -1,5 +1,21 @@
 # 캡슐화와 추상화 이해하기
 
+## 캡슐화와 추상화 정의
+- **캡슐화**는 **데이터 무결성**을 보호하는 행위입니다.
+  ```
+  Encapsulation is an act of protecting the data integrity. 
+  ```
+  - 정보 은닉(Information hiding)
+  - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)
+- **추상화**는 **불필요한 것**을 **제거**하고 **본질적인 것**을 **증폭**하는 것입니다.
+  ```
+  Abstraction is the elimination of the irrelevant and the amplification of the essential.
+  ```
+  - 단일 책임 원칙(Single Responsibility Principle)
+  - 계층화(hierarchy)
+
+
+
 ## 캡슐화(Encapsulation)
 - 캡슐화 이유 : 캡슐화를 통해 Rich domain model을 정의할 수 있다.
   ```
@@ -20,7 +36,7 @@
     - `TODO` 유효성
     - `TODO` 신뢰성
 - 캡슐화 기술 : 내부 데이터를 유효하지 않거나 일관성이 없는 상태로 설정할 수 없게 만드는 방법이다.
-  - 정보은닉(Information hiding)  
+  - 정보 은닉(Information hiding)  
     내부 데이터 손상을 최소화시킨다(Less risk of corrupting the class's internals).
   - 상태와 행위를 하나의 단위로 묶는 것(Bundling of data and operations)  
     클래스에서 수행할 수 있는 모든 작업에 대한 대한 단일 진입정을 제공한다(Perform integrity checks before modifying data).
@@ -235,6 +251,8 @@
     - `Disable` 메서드 이름
 
 ## 참고 자료
+- [ ] [Encapsulation in Object Oriented Programming](https://ducmanhphan.github.io/2019-12-19-encapsulation-in-object-oriented-programming/)
+- [ ] [Encapsulation (computer programming)](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
 - [x] [Encapsulating EF Core 6 Usage | Understanding Encapsulation and Abstraction](https://www.pluralsight.com/courses/ef-core-6-encapsulating-usage)
 - [ ] [Encapsulation revisited](https://enterprisecraftsmanship.com/posts/encapsulation-revisited/)
 - [ ] [TellDontAsk](https://martinfowler.com/bliki/TellDontAsk.html)
