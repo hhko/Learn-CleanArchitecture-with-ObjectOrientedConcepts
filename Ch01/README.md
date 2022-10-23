@@ -259,6 +259,7 @@
 
 ## 참고 자료
 - [ ] [Encapsulation in Object Oriented Programming](https://ducmanhphan.github.io/2019-12-19-encapsulation-in-object-oriented-programming/)
+  - Encapsulation is an act of protecting the data integrity. 
 - [ ] [Encapsulation (computer programming)](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
 - [x] [Encapsulating EF Core 6 Usage | Understanding Encapsulation and Abstraction](https://www.pluralsight.com/courses/ef-core-6-encapsulating-usage)
 - [ ] [Encapsulation revisited](https://enterprisecraftsmanship.com/posts/encapsulation-revisited/)
